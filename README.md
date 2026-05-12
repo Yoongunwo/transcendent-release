@@ -1,23 +1,25 @@
+# For Me
+
 # Transcendent Code
 
 Using conformal evaluation to detect concept drift affecting malware detection.
 
 For more information, you can see the project page: https://s2lab.cs.ucl.ac.uk/projects/transcend/
 
-## What is Transcend and Conformal Evaluation? 
+## What is Transcend and Conformal Evaluation?
 
-Malware evolves rapidly which makes it hard---if not impossible---to 
-generalize learning models to reflect future, previously-unseen behaviors. 
-Consequently, most malware classifiers become unsustainable in the long run, 
-becoming rapidly antiquated as malware continues to evolve. 
+Malware evolves rapidly which makes it hard---if not impossible---to
+generalize learning models to reflect future, previously-unseen behaviors.
+Consequently, most malware classifiers become unsustainable in the long run,
+becoming rapidly antiquated as malware continues to evolve.
 
-Transcendent is a toolset which, together with a statistical framework called 
-conformal evaluation, aims to identify aging classification models in vivo 
-during deployment, before the machine learning model's performance starts to 
+Transcendent is a toolset which, together with a statistical framework called
+conformal evaluation, aims to identify aging classification models in vivo
+during deployment, before the machine learning model's performance starts to
 degrade.
 
-Further details can be found in the paper [*Transcending TRANSCEND: Revisiting 
-Malware Classification in the Presence of Concept Drift*](https://arxiv.org/abs/2010.03856). by F. Barbero, F. Pendlebury, F. Pierazzi, and L. Cavallaro (IEEE S&P 2022).
+Further details can be found in the paper [_Transcending TRANSCEND: Revisiting
+Malware Classification in the Presence of Concept Drift_](https://arxiv.org/abs/2010.03856). by F. Barbero, F. Pendlebury, F. Pierazzi, and L. Cavallaro (IEEE S&P 2022).
 
 If you end up using Transcendent as part of a project or publication, please include a citation of the S&P paper:
 
@@ -30,13 +32,13 @@ year = {2022},
 }
 ```
 
-Transcendent is based on Transcend. Further details can be found in the paper [*Transcend: Detecting Concept Drift 
-in Malware Classification Models*](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-jordaney.pdf). by R. Jordaney, K. Sharad, S. K. Dash, Z. Wang, 
-D. Papini, I. Nouretdinov, and L. Cavallaro (USENIX Sec 2017). An associated 
+Transcendent is based on Transcend. Further details can be found in the paper [_Transcend: Detecting Concept Drift
+in Malware Classification Models_](https://www.usenix.org/system/files/conference/usenixsecurity17/sec17-jordaney.pdf). by R. Jordaney, K. Sharad, S. K. Dash, Z. Wang,
+D. Papini, I. Nouretdinov, and L. Cavallaro (USENIX Sec 2017). An associated
 presentation can be found at [the Usenix site.](https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/jordaney)
 
-If you end up using Transcendent as part of a project or publication, please 
-include a citation of the original Transcend Usenix paper as well: 
+If you end up using Transcendent as part of a project or publication, please
+include a citation of the original Transcend Usenix paper as well:
 
 ```
 @inproceedings {jordaney2017,
@@ -52,11 +54,11 @@ include a citation of the original Transcend Usenix paper as well:
 }
 ```
 
-## Getting Started 
+## Getting Started
 
 ### Installation
 
-Transcend requires Python 3 (preferably >= 3.5) as well as the statistical 
+Transcend requires Python 3 (preferably >= 3.5) as well as the statistical
 learning stack of NumPy, SciPy, and Scikit-learn.
 
 Package dependencies can be installed by using the listing in requirements.txt.
@@ -69,33 +71,33 @@ A full installation can be peformed using setup.py:
 
 ```shell
 pip install -r requirements.txt
-python setup.py install 
+python setup.py install
 ```
 
 Features to reproduce the Android experiments can be downloaded from [this link](https://www.dropbox.com/sh/8cc6z64rzi1n4br/AAD88BhcF_BjWcT7tO2T53qTa?dl=0)
 
 Features for Marvin and Drebin can be downloaded from [this link](https://www.dropbox.com/s/wj2eoww36ljqpor/transcend-features.tar.gz?dl=0)
 
-### Usage 
-    
-Conformal evaluation can get a little bit fiddly, so it's advised that you 
-become familiar with a typical testing pipeline such as the example given in 
-`ce.py` as well as the following functions (which are particularly affected by 
+### Usage
+
+Conformal evaluation can get a little bit fiddly, so it's advised that you
+become familiar with a typical testing pipeline such as the example given in
+`ce.py` as well as the following functions (which are particularly affected by
 different configuration settings):
 
-* `utils.parse_args()`
-* `data.load_features()`
-* `thresholding.find_quartile_thresholds()`
-* `thresholding.find_random_search_thresholds()`
-* `thresholding.sort_by_predicted_label()`
-* `thresholding.get_performance_with_rejection()`
+- `utils.parse_args()`
+- `data.load_features()`
+- `thresholding.find_quartile_thresholds()`
+- `thresholding.find_random_search_thresholds()`
+- `thresholding.sort_by_predicted_label()`
+- `thresholding.get_performance_with_rejection()`
 
 ### ce.py
 
-An example conformal evaluation pipeline using the Transcend library is given 
-in `ce.py`. It can be run with a multitude of command line arguments. 
+An example conformal evaluation pipeline using the Transcend library is given
+in `ce.py`. It can be run with a multitude of command line arguments.
 
-Comparing quartiles of correct predictions using credibility only: 
+Comparing quartiles of correct predictions using credibility only:
 
 ```shell
 python3 ce.py	                  	    \
@@ -106,12 +108,11 @@ python3 ce.py	                  	    \
     --pval-consider full-train  	    \
     -t quartiles                	    \
     --q-consider correct                \
-    -c cred                     	 
+    -c cred
 ```
 
-
-Random search for thresholds maximising F1 above threshold and minimising F1 of 
-rejected predictions while enforcing thresholds for credibility and confidence: 
+Random search for thresholds maximising F1 above threshold and minimising F1 of
+rejected predictions while enforcing thresholds for credibility and confidence:
 
 ```shell
 python3 ce.py	                  	    \
@@ -128,8 +129,8 @@ python3 ce.py	                  	    \
     --rs-samples 500
 ```
 
-Random search for thresholds maximising F1 above threshold subject to the 
-total percentage of rejected elements while enforcing credibility thresholds: 
+Random search for thresholds maximising F1 above threshold subject to the
+total percentage of rejected elements while enforcing credibility thresholds:
 
 ```shell
 python3 ce.py 		                                \
@@ -145,8 +146,8 @@ python3 ce.py 		                                \
 	--rs-samples 500
 ```
 
-## Acknowledgements 
+## Acknowledgements
 
-This research has been partially supported by the UK EPSRC grants EP/K033344/1, 
+This research has been partially supported by the UK EPSRC grants EP/K033344/1,
 EP/L022710/1, EP/K006266/1, and EP/P009301/1 as well as the NVIDIA Corporation,
-NHS England, and Innovate UK. 
+NHS England, and Innovate UK.
